@@ -1,8 +1,8 @@
 FROM node:alpine
-RUN apk add --no-cache bash git curl wget build-base python3 py3-pip && \
-    curl -fsSL https://claude.ai/install.sh | bash && \
-    mv /root/.local/bin/claude /usr/local/bin/claude && \
-    adduser -D claude && \
+ENV PATH="/root/.local/bin:${PATH}"
+RUN apk add --no-cache bash git curl wget build-base python3 py3-pip
+RUN curl -fsSL https://claude.ai/install.sh | bash
+RUN adduser -D claude && \
     mkdir -p /work && \
     chown claude:claude /work
 USER claude

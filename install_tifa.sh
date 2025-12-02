@@ -7,10 +7,10 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 echo "Installing Tifa..."
 
 echo "Building Docker image..."
-docker build -t tifa "$SCRIPT_DIR" 2>/dev/null || {
+if ! docker build -t tifa "$SCRIPT_DIR"; then
     echo "Failed to build Docker image"
     exit 1
-}
+fi
 
 echo "Creating tifa command..."
 cat > /tmp/tifa << 'EOF'
