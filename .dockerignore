@@ -24,3 +24,6 @@ README.md
 Dockerfile
 .dockerignore
 docker-compose.yml
+Makefile
+run
+install_tifa.sh
