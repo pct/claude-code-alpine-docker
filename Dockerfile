@@ -24,4 +24,8 @@ RUN claude plugin install agent-sdk-dev && \
     claude plugin install security-guidance && \
     claude plugin install typescript-lsp
 
+# Install ralph-loop plugin (requires marketplace update first)
+RUN claude plugin marketplace update && \
+    claude plugin install ralph-loop
+
 ENTRYPOINT ["claude", "--dangerously-skip-permissions"]
