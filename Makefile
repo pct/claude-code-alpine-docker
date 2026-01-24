@@ -1,4 +1,4 @@
-.PHONY: build run install uninstall clean help
+.PHONY: build rebuild run install uninstall clean help
 
 IMAGE_NAME := tifa
 INSTALL_PATH := /usr/local/bin/tifa
@@ -7,7 +7,8 @@ help:
 	@echo "Usage: make [target]"
 	@echo ""
 	@echo "Targets:"
-	@echo "  build     Build the Docker image"
+	@echo "  build     Build the Docker image (uses cache)"
+	@echo "  rebuild   Build the Docker image (no cache)"
 	@echo "  run       Build and run Claude Code in container"
 	@echo "  install   Install 'tifa' command globally"
 	@echo "  uninstall Remove 'tifa' command"
@@ -15,6 +16,9 @@ help:
 
 build:
 	docker buildx build -t $(IMAGE_NAME) .
+
+rebuild:
+	docker buildx build --no-cache -t $(IMAGE_NAME) .
 
 run: build
 	docker run --rm -it -v "$$(pwd):/work" -v tifa-claude:/home/claude/.local -w /work $(IMAGE_NAME)
